@@ -1,7 +1,7 @@
 import dotenv from "dotenv"
 
 dotenv.config()
-console.log("ENV", process.env)
+// console.log("ENV", process.env)
 
 const config = {
     PORT: process.env.PORT || 5000,
