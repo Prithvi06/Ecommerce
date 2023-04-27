@@ -1,0 +1,1 @@
+const asyncHandler = (fn) => async()
