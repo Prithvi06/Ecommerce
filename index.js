@@ -25,4 +25,4 @@ import config from "./src/config/index.js";
             throw err
         }
     }
-)
+)()
