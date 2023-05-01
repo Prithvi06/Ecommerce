@@ -34,3 +34,29 @@ export const sigUp = asyncHandler(async(req, res) => {
         user,
     })
 })
+
+export const login = asyncHandler(async(req, res) => {
+    const {email, password} = req.body
+
+    if (!email || !password) {
+        throw new CustomError("Please fill all details", 400)
+    }
+
+    const user = User.findOne({email}).select("+password")
+    if (!user) {
+        throw new CustomError("Invalid credentials", 400)
+    }
+
+    const isPasswordMatched = await user.comparePassord(password)
+    if (isPasswordMatched) {
+        const token = user.getJWTToken()
+        user.password = undefined
+        req.cookie("token", token, cookieOptions)
+        return res.status(200).json({
+            success: true,
+            token,
+            user
+        })
+    }
+    throw new CustomError("Password is incorect", 400)
+})
