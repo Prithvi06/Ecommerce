@@ -60,3 +60,27 @@ export const login = asyncHandler(async(req, res) => {
     }
     throw new CustomError("Password is incorect", 400)
 })
+
+export const logout = asyncHandler(async(req, res) => {
+    req.cookie("token", null, {
+        expires: new Date(Date.now()),
+        httpOnly: true
+    })
+
+    res.status(200).json({
+        success: true,
+        message: 'Logged Out'
+    })
+})
+
+export const getProfile = asyncHandler(async(req, res) => {
+    const {user} = req
+    if (!user) {
+        throw new CustomError("User not found", 401)
+    }
+
+    res.status(200).json({
+        success: true,
+        user
+    })
+})
