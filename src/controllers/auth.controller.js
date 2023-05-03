@@ -1,6 +1,7 @@
 import User from "../models/user.schema.js"
 import asyncHandler from "../service/asyncHandler.js";
 import CustomError from "../utils/customError.js";
+import mailHelper from "../utils/mailHelper.js";
 
 export const cookieOptions = {
     expire: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000),
